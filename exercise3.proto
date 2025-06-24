@@ -1,0 +1,70 @@
+syntax = "proto2";
+
+// python -m grpc_tools.protoc exercise3.proto --proto_path=. --python_out=. --grpc_python_out=. 
+
+// Add gRPC service here
+
+enum ActionType {
+    // Move a unit to target point
+    MOVE = 1;
+    // Unit travels back and forth between current position and target point
+    PATROL = 2;
+    // Unit attacks target point
+    ATTACK = 3;  
+    // SCV gathers resources from target mineral field
+    // Interrupting this action cancels the harvest
+    HARVEST = 4;
+    // SCV unit builds barracks unit at target point
+    // Interrupting this action cancels the build
+    BUILD_BARRACKS = 5;
+    // Barracks builds marine unit
+    TRAIN_MARINE = 6;
+    // Unit stops current action
+    CANCEL = 7;
+    // Continue game without taking an action
+    NO_OP = 8;
+}
+
+enum Timing {
+    NOW = 1;
+    QUEUED = 2;
+}
+
+message Point {
+    required float x = 1;
+    required float y = 2;
+}
+
+message Action {
+    required ActionType action_type = 1;
+    required uint64 unit_tag = 2;
+    optional Point target_point = 3;
+    optional uint64 target_tag = 4;
+    optional Timing timing = 5;
+}
+
+message Unit {
+  required uint64 unit_tag = 1;
+  required int32 unit_type = 2;
+  required int32 player = 3;
+  required int32 health = 4;
+  required int32 shields = 5;
+  required float x = 6;
+  required float y = 7;
+  required float progress = 8;
+}
+
+message Observation {
+  required int32 mineral_count = 1;
+  required int32 food_cap = 2;
+  required int32 food_used = 3;
+  repeated Unit friendly_units = 4;
+  repeated Unit enemy_units = 5;
+  repeated Unit neutral_units = 6;
+}
+
+
+
+
+
+
