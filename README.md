@@ -1,15 +1,15 @@
 # StarCraft II Challenge 2025
+A challenge environment for controlling SC2 units. Based on [PySC2](https://github.com/google-deepmind/pysc2) specifically for exploring heuristic tactics.
 
-## Part 1: Background
+## Installation Instructions
+1. Install dependencies in a virtual environment `pip install -r requirements.txt`
+2. Move challenge maps to `\<StarCraft II Installation Directory\Maps\EEE466\*.SC2Map`
+3. Add `Version("5.0.13", 92174,"D44E66924A56B2D4BC94786D8A7EB5B8", None),` to `venv\Lib\site-packages\pysc2\run_configs\lib.py VERSIONS`
 
-The objective of this exercise is to apply distributed programming techniques learned in this course to interact with production software. You will control an army of StarCraft units in a fight against other teams to demonstrate your superior tactics. In 2019, a team from Google's AI lab, DeepMind, created a reinforcement learning model that learned how to play and win against professional gamers at StarCraft II, a real-time strategy game and esport. See [this blog post about AlphaStar](https://deepmind.google/discover/blog/alphastar-mastering-the-real-time-strategy-game-starcraft-ii/). This work went on to be featured on the cover of [Nature](https://www.nature.com/articles/s41586-019-1724-z). A by-product of AlphaStar was the open-source python library for training reinforcement learning models at the game, [PySC2](https://github.com/google-deepmind/pysc2) which has been cited by over 800 academic papers.
-
-A basic understanding of reinforcement learning (RL) will help situate how the components fit together. A foundational model in RL is the Markov Decision Process. This model defines two entities: an agent and an environment. The agent interacts with the environment by providing an output action and receiving 2 inputs: a new state and a reward. Because we aren't training a self-learning model in this course, we can discard the reward and instead use our intuition to program a set of responses to the received game state. In other words, the environment is a simulator for the game, the agent is your army, and the decision of what action to take next depends on the current state of the game. We call the logic that determines the next action a "policy". It is the *brain* of the agent. 
-
-### Scenario
+## Scenario
 Each game of StarCraft II begins with a home base (command center) and a group of workers (SCVs). The base is near mineral fields which the workers can mine minerals from, this serves as currency to build new units and structures. In the game scenario you're objective is to destroy your opponent's pylon - it's a crystal structure. However, your opponent has a combat unit and you do not. To make combat units you need to build a factory (barracks) to train new marines. The steps to a successful policy then are: harvest minerals, build barracks, train marines, and once you have enough marines, destroy their pylon.
 
-## Part 2: Design
+## Design
 There are two parts to this exercise: 1. make a local policy that enables your team to destroy the opponent's structure, 2. remotely control game actions using a gRPC controller.
 
 ### StarCraft II Challenge
@@ -93,7 +93,7 @@ The game ends in a loss for player 1 if:
 - There are no player 1 SCVs or marines
 - The pylon is standing after five minutes of in-game time
 
-## Part 3: Requirements
+## Requirements
 ### Policy
 - `RemotePolicy` must inherit from `rpc_controller.Policy` and override the `get_action` method.
 - `RemotePolicy` must use protobuf definitions for observations, units, actions, and their attributes. Other game data (i.e., state information) may be stored in other formats.
