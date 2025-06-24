@@ -1,4 +1,4 @@
-# EEE466 Exercise 3: StarCraft II Challenge
+# StarCraft II Challenge 2025
 
 ## Part 1: Background
 
