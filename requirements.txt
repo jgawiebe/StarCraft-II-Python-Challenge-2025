@@ -1,7 +1,9 @@
+absl-py==2.3.0
 grpcio==1.73.0
 grpcio-tools==1.48.2
 numpy==2.0.0
 protobuf==3.20.0
-PySC2
-s2clientprotocol
-s2protocol
+PySC2==4.0.0
+s2clientprotocol==5.0.14.93333.0
+s2protocol==5.0.14.93333.0
+
