@@ -55,6 +55,7 @@ def build_players(configs: list[PlayerConfig]) -> tuple[list, list]:
 
 def main(argv):
     map_name = "exercise3"
+    game_speed_mul = 1
     visualize = False
     replay = False
 
@@ -75,7 +76,7 @@ def main(argv):
             feature_screen=84,
             feature_minimap=32,
         ),
-        step_mul=1,
+        step_mul=game_speed_mul,
         score_index=-1,
         realtime=False,
         disable_fog=True,
